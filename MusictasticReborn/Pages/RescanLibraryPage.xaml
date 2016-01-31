@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="MusictasticReborn.Pages.RescanLibraryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MusictasticReborn.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{StaticResource ThemeBackground}">
+    
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="FontSize"
+                    Value="22" />
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+       
+
+        <!--TODO: Content should be placed within the following grid-->
+        <StackPanel Grid.Row="1" VerticalAlignment="Center"
+              x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <TextBlock Text="scannig library for changes" />
+            <ProgressBar IsIndeterminate="True" />
+            <TextBlock x:Name="SongsScannedTbx" />
+            <TextBlock x:Name="AlbumsAddedTbx" />
+
+        </StackPanel>
+    </Grid>
+</Page>

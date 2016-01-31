@@ -1,0 +1,128 @@
+﻿<Page
+    x:Class="MusictasticReborn.Pages.MusicLibraryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:MusictasticReborn.UserControls"
+    xmlns:local="using:MusictasticReborn.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#393232">
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <SlideNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="BorderThickness"
+                    Value="1" />
+            <Setter Property="FontWeight"
+                    Value="Light" />
+            <Setter Property="MinWidth"
+                    Value="95" />
+            <Setter Property="FontSize"
+                    Value="18" />
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <Grid Grid.Row="0" 
+                    Margin="10,5,10,0" 
+                    x:Name="SelectionButtons"
+                    >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Content="artists"
+                    Click="ArtistsSelected_Click"
+                    Opacity="1" />
+            
+            <Button Content="albums"
+                    Grid.Column="1"
+                    
+                    Click="AlbumsSelected_Click"
+                    Background="{StaticResource ThemeBrush}"
+                     />
+            
+            <Button Content="songs"
+                    Grid.Column="2"
+                    Click="SongsSelected_Click"/>
+            
+            <Button Content="playlists" 
+                    Click="PlaylistsSelected_Click"
+                    Grid.Column="3" />
+        </Grid>
+
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1" x:Name="ContentRoot" >
+            <ListView x:Name="ListV"
+                      SelectionChanged="ListV_SelectionChanged"
+                      Visibility="Collapsed">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="7 2">
+                            <TextBlock FontSize="24"
+                                       Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <GridView 
+                x:Name="AlbumsView"
+                ItemsSource="{Binding Albums}"
+                SelectionChanged="AlbumsView_SelectionChanged">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="200" 
+                              Height="200"
+                              Background="{StaticResource ThemeBrush}"
+                              Margin="5"> 
+                            <TextBlock Text="{Binding Name}"
+                                       FontSize="24"
+                                       Margin="5"
+                                       TextWrapping="Wrap"/>
+                            <Image Stretch="Fill"
+                                   Source="{Binding Path=ArtPath}"/>
+                            
+                            
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+            
+            <controls:SongsJumpList x:Name="SongsView" Visibility="Collapsed" />
+        </Grid>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="download album art"
+                              Click="DownloadAlbumArt_Click" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
